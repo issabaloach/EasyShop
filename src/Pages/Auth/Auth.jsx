@@ -9,7 +9,10 @@ function Auth() {
         justify-center space-y-4"
     >
       {/* Login with Google Button */}
-      <Button   type="primary">Login With Google</Button>
+      <Link to="/auth/login">
+      <Button type="primary">Login With Google</Button>
+      </Link>
+      
 
       {/* Login with Email Button wrapped in Link */}
       <Link to="/auth/login">

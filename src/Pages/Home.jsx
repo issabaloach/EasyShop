@@ -9,7 +9,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("https://dummyjson.com/products?limit=12")
+      .get("https://dummyjson.com/products?limit=10")
       .then((res) => setProducts(res.data.products));
   }, []);
 

@@ -4,17 +4,17 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../Context/CartContext";
 import { signOut } from "firebase/auth";
-import { auth } from "../utils/firebase"; // Make sure to import your Firebase auth instance
+import { auth } from "../utils/firebase";
 
 function Header() {
   const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
-  const user = auth.currentUser; // Get the current user
+  const user = auth.currentUser;
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      navigate("/"); // Redirect to home page after sign out
+      navigate("/"); 
     } catch (error) {
       console.error("Error signing out: ", error);
     }

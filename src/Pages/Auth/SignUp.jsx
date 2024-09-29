@@ -33,6 +33,7 @@ function Signup() {
         const user = userCredential.user;
         message.success("Successfully signed up");
         navigate('/');
+        
       })
       .catch((error) => {
         console.error("Manual Sign-up Error:", error.message);
