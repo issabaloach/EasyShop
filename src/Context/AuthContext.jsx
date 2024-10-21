@@ -1,6 +1,6 @@
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 import { createContext, useEffect, useState } from "react";
-import { onAuthStateChanged } from 'firebase/auth'; 
+import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from "../utils/firebase";
 
 export const AuthContext = createContext();
@@ -12,6 +12,20 @@ function AuthContextProvider({ children }) {
     });
 
     const [loading, setLoading] = useState(true);
+
+    const handleSignIn = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            if (error.code === 'auth/popup-closed-by-user') {
+                message.info('Sign-in cancelled. You can try again when you,re ready');
+            } else {
+                message.error('An error occurred during sign-in. Please try again.');
+                console.error('Sign-in error:', error);
+            }
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -43,7 +57,7 @@ function AuthContextProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, handleSignIn }}>
             {children}
         </AuthContext.Provider>
     );
